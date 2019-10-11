@@ -1,3 +1,41 @@
-\chapter{Exercise 2}
+\section*{Exercise 2}
 
-\section{Question 1}
+We need to show the stability of the weights on the optimal portfolio with shrunk covariance matrices. We use the regularization 
+\begin{equation*}
+\Sigma_s = \lambda F + (1-\lambda)\Sigma
+\end{equation*}
+with given $\lambda=0.2$ and with the following two substitutions:
+\begin{enumerate}
+\item $F=I$, the identity matrix 
+\item $F =$ the constant correlation matrix, first used by Ledoit and Wolf. Here we substitute the correlation coefficient between each pair of stocks with the average of the correlation coefficients.  
+\end{enumerate} 
+
+
+In order to compute optimal portfolio weights, the covariance matrix needs to be invertible and needs to be estimated as precisely as possible. 
+Shrinkage of the covariance matrix is a way to overcome the problems of its noisy estimation and non-invertibility.
+The regularization ensures that the shrunk covariance matrix will be positive definite and thus invertible. We create a convex combination of the estimated covariance matrix, which is potentially positive semi-definite, and a structural matrix $F$, which is designed to be positive definite.
+
+Figure \ref{fig2} compares  
+\begin{itemize}
+\item our estimates based on the subsample (first boxplot "mu and sigma updated"),
+\item our estimates of sigma based on the entire dataset and mu based on the subsample (second boxplot "mu updated"), and
+\item the estimates based on the subsample but using the first shrunk covariance matrix, where $F=I$ ("regularized F=I"). 
+\end{itemize}
+
+\begin{figure}[H]
+%\includegraphics[width=15cm]{DS_Ex3_Q2A.eps}
+\caption{Weight stability with shrinkage $F=I$}
+\label{fig2}
+\end{figure}
+
+Note the different scale on the y-axis. We can see that...
+
+ 
+Figure \ref{fig3} differs from Figure \ref{fig2} only in the third diagram. Here we compare our previous results with the estimates using the constant correlation matrix.
+\begin{figure}[H]
+%\includegraphics[width=15cm]{DS_Ex3_Q2B.eps}
+\caption{Weight stability with shrinkage using the constant correlation matrix}
+\label{fig3}
+\end{figure}
+
+We can see that...
