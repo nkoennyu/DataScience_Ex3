@@ -1,5 +1,85 @@
 
-\chapter{Exercise 1}
 
-\section{Question 1}
+\section*{Exercise 1}
 
+Using 1000 randomly selected subperiods of 500 days, we need to show the instability of the weights of the optimal portfolio when we
+\begin{enumerate}
+\item update $\mu$ and $\Sigma$, meaning that we only use the subsample of 500 days instead of the entire sample of approximately 2000 days to calculate expected log-returns and volatility; 
+\item update $\mu$ only, and we use the covariance matrix for the entire sample;
+\item update $\Sigma$ only.
+\end{enumerate}
+
+Figure \ref{fig1} demonstrates the instability of the weights for the first 20 stocks of our dataset. The first boxplot diagram shows that our results are noisy when using only 500 days to estimate the expected stock returns and volatility. The second diagram shows that we get a lot more precise estimation when we use all the approximately 2000 days for estimating the covariance matrix even though we have used only the subsample to estimate $\mu$. The third boxplot diagram shows that with the subsample of 500 days our estimation is noisy despite the fact that we have used the entire sample to estimate the mean. 
+
+\begin{figure}[H]
+\includegraphics[width=15cm]{DS_Ex3_Q1.eps}
+\caption{Weight stability for a subsample of 500 days}
+\label{fig1}
+\end{figure}
+
+We conclude that we need a good estimation of the covariance matrix in order to calculate stable weights for our optimal portfolio. In our example we needed at least a sample size of 500 to get an invertible covariance matrix for 452 stocks, but this sample size is not sufficient to calculate stable weights.  
+ 
+
+We have used the following R code to generate boxplots: 
+\begin{verbatim}
+
+X=read.delim("data_lausanne_equity.csv",sep=";",header=FALSE)
+X=diff(as.matrix(log(X)),1)
+
+#Markowitz
+mu=apply(X,2,mean)
+sigma=cov(X)
+sigmainv=solve(sigma)
+gamma=3
+w=1/gamma*sigmainv%*%mu
+
+#subsampling
+wtotal=c()            		#creates a vector to store the weights
+wsigma=c()
+wmu=c()
+count=0                 		#counter defined and set to 0
+for (i in 1:1000)        		#starts a 1000 rounds loop
+{
+ #generates a random number/date from the dataset matrix X 
+  u=round(runif(1,500,nrow(X)),0)               	
+  
+  #creates a vector sample of 500 dates ending at day u					
+  sample=X[(u-499):(u),]           
+  
+  #tests if sigma inverse can be calculated            		
+  check=try(solve(var(sample)),silent=TRUE) 
+ 
+  #if sigma is not invertible (try failed)   
+  if (is.character(check))                     			
+    {
+      count=count+1            
+    } else                                      			
+    { 
+      #calculates the mean of the subsample
+      mutemp=apply(sample,2,mean)     
+   
+      #calculates sigma inverse of the subsample
+      sigmainvtemp=solve(cov(sample))    
+
+      #computes Markowitz weights using the sigma of the subsample 
+      #and the population mean
+      temp=1/gamma*sigmainvtemp%*%mu        
+      wsigma=rbind(wsigma,t(temp))         
+      
+      #computes Markowitz using subsample mean and sigma  	 
+      temp=1/gamma*sigmainvtemp%*%mutemp        
+      wtotal=rbind(wtotal,t(temp))     
+      
+      #computes Markowitz using the population sigma and the subsample mean      		 
+      temp=1/gamma*sigmainv%*%mutemp            
+      wmu=rbind(wmu,t(temp))                   		 
+      }
+}
+#plotting the results
+layout(matrix(1:3,1,3))
+boxplot([wtotal,1:20], main="mu and sigma updated", ylim=c(-400,400))
+boxplot(wmu[,1:20], main="mu updated", ylim=c(-400,400))
+boxplot(wsigma[,1:20], main="sigma updated", ylim=c(-400,400))
+
+\end{verbatim}
+\newpage
