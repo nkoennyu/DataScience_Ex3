@@ -38,9 +38,11 @@ for (i in 1:1000)        #starts a 500 rounds boucle
 }
 layout(matrix(1:3,1,3))
 
-boxplot(wsigma[,1:20],ylim=c(-10,10))
-boxplot(wmu[,1:20],ylim=c(-10,10))
-boxplot(wtotal[,1:20],ylim=c(-10,10))
+boxplot(wtotal[,1:20],ylim=c(-400,400), main="mu and sigma updated")
+boxplot(wmu[,1:20],ylim=c(-400,400), main="mu updated")
+boxplot(wsigma[,1:20],ylim=c(-400,400), main="sigma updated")
+
+
 
 
 
