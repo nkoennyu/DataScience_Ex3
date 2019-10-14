@@ -1,23 +1,25 @@
-\section*{Exercise 2}
+\chapter*{Exercise 2}
 
-We need to show the stability of the weights on the optimal portfolio with shrunk covariance matrices. We use the regularization 
+In order to contain the weight instability, we can amend the covariance matrix in order to “artificially” always make it useful and stable i.e. invertible. One method allowing us to end up with an invertible matrix is known as matrix shrinkage. \par\smallskip
+Shrinkage works by computing a convex combination of a positively defined matrix with a semi-positively defined matrix, the result is a positively defined matrix which, by nature, is invertible. Furthermore, provided the weighting of the positively defined matrix is sufficient, the invert of combination not only exists, but is also stable. \par\smallskip
+We use the following regularisation with $\lambda=0.2$ given to shrink the covariance matrix:
 \begin{equation*}
 \Sigma_s = \lambda F + (1-\lambda)\Sigma
 \end{equation*}
-with given $\lambda=0.2$ and with the following two substitutions:
-\begin{enumerate}
-\item $F=I$, the identity matrix 
-\item $F =$ the constant correlation matrix, first used by Ledoit and Wolf. Here we substitute the correlation coefficient between each pair of stocks with the average of the correlation coefficients.  
-\end{enumerate} 
 
+Here $\Sigma$ is the semi-positively defined matrix whilst $F$ is going to be the positively defined one, namely:
 
-In order to compute optimal portfolio weights, the covariance matrix needs to be invertible and needs to be estimated as precisely as possible. 
-Shrinkage of the covariance matrix is a way to overcome the problems of its noisy estimation and non-invertibility.
-The regularization ensures that the shrunk covariance matrix will be positive definite and thus invertible. We create a convex combination of the estimated covariance matrix, which is potentially positive semi-definite, and a structural matrix $F$, which is designed to be positive definite.
+\begin{itemize}
+    \item $F_1=I_n$ The Identity Matrix
+    \item $F_2=F_{\overline{\rho}}$ The Constant Correlation Matrix, first used by Ledoit and Wolf. Here we substitute the correlation coefficients in the covariance matrix between each pair of stocks with the average of the correlation coefficients.
+\end{itemize}
+
+\section*{Question 1}
+
 
 Figure \ref{fig2} compares  
 \begin{itemize}
-\item our estimates based on the subsample (first boxplot "mu and sigma updated"),
+\item The weight distribution estimated from the sub-sample (Figure \ref{fig1} "mu and sigma updated"),
 \item our estimates of sigma based on the entire dataset and mu based on the subsample (second boxplot "mu updated"), and
 \item the estimates based on the subsample but using the first shrunk covariance matrix, where $F=I$ ("regularized F=I"). 
 \end{itemize}
