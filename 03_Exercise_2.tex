@@ -16,6 +16,9 @@ Here $\Sigma$ is the semi-positively defined matrix whilst $F$ is going to be th
 
 \section*{Question 1}
 
+In the first case we use the identity matrix $I_n$ and $\lambda=0.2$. We transform our estimate of $\Sigma$ and compute the inverse in order to solve the optimal weights. \\
+We determine the optimal weights using both $\mu$ and $\Sigma$ estimates from the same sub-sample but using the shrunk covariance matrix $\Sigma_S$ to compute the optimal weights. In Figure \ref{fig2}, the left box-plot shows the resulting weight distribution for the first 20 stocks. The right box-plot is the plot from Figure \ref{fig1} also obtained using only the sub-sample but without shrinkage. \\
+Clearly, using a shrunk covariance matrix drastically improves the stability of the weights. However, this \emph{does not guarantee the optimality of the weights themselves}, we would have to test the performance of these new weights and compare said performance to that of the optimal portfolio derived from the full-sample.
 
 Figure \ref{fig2} compares  
 \begin{itemize}
