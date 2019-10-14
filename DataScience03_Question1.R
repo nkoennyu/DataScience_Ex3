@@ -1,3 +1,10 @@
+#######################################################################################################
+# HEC Lausanne - MScF
+# Data Science for Finance
+# Exercise Session 3 - 14.10.2019
+# Marceau Pierron, Taulant Ukshini, David Sasselli, Nora Koennyu
+#######################################################################################################
+
 X=read.delim("datalausanneequity.csv",sep=";",header=FALSE)
 X=diff(as.matrix(log(X)),1)
 
