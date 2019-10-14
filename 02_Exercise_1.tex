@@ -24,7 +24,6 @@ In the first series of graphs we’re interested in determining whether the opti
 \item $\Sigma$ updated, full-sample expected returns and sub-sample covariance matrix.
 \end{itemize}
 
-\newpage
 Here we limit our box-plots to the first 20 stocks in order to give the reader a clearer view of the results, it has to be stressed that our calculations and their subsequent results include all 452 stocks from the original data-set.
 \par\smallskip
 Figure \ref{fig1} demonstrates the stability of the weights for the first 20 stocks of our data-set.\par
@@ -33,12 +32,12 @@ The second shows that using the full-sample to estimate the covariance matrix an
 The third box-plot shows that using the full-sample to estimate the expected returns and the sub-sample to estimate the covariance provides little to no improvement on the stability of the weights compared to the first case scenario. 
 
 \begin{figure}[H]
-\includegraphics[width=14cm]{Boxplot_question_1.pdf}
+\includegraphics[width=14cm]{QQplotquestion1merged.eps}
 \caption{Weight stability for a sub-sample of 500 days}
 \label{fig1}
 \end{figure}
 
 As a result, we understand that weight instability and variability is primarily due to the estimation of $\Sigma$.
 \par\smallskip
-We conclude that we need a good estimation of the covariance matrix in order to calculate stable weights for our optimal portfolio. In our example we needed at least a sample size of 500 to get an invertible covariance matrix for 452 stocks, but this sample size is not sufficient to compute stable weights.  
+We conclude that we need a good estimation of the covariance matrix in order to calculate stable weights for our optimal portfolio. In our example we needed at least a sample size of 500 to get an invertible covariance matrix for 452 stocks, but this sample size is still not sufficient to compute stable weights.  
  
