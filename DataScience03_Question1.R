@@ -1,9 +1,9 @@
-#######################################################################################################
+##########################################################################
 # HEC Lausanne - MScF
 # Data Science for Finance
 # Exercise Session 3 - 14.10.2019
 # Marceau Pierron, Taulant Ukshini, David Sasselli, Nora Koennyu
-#######################################################################################################
+##########################################################################
 
 X=read.delim("datalausanneequity.csv",sep=";",header=FALSE)
 X=diff(as.matrix(log(X)),1)
@@ -25,21 +25,36 @@ wmu=c()
 count=0                 #counter defined and set to 0
 for (i in 1:1000)        #starts a 500 rounds boucle
 {
-  u=round(runif(1,500,nrow(X)),0)               #generates a random number/date from the dataset matrix X
-  sample=X[(u-499):(u),]                        #creates a vector sample of 500 dates with respect to u
-  check=try(solve(var(sample)),silent=TRUE)     #tests if it can calculate the variance of the sample
-  if (is.character(check))                      #if it reaches a result (check=1)
+  u=round(runif(1,500,nrow(X)),0)               
+  #generates a random number/date from the dataset matrix X
+  sample=X[(u-499):(u),]                        
+  #creates a vector sample of 500 dates with respect to u
+  check=try(solve(var(sample)),silent=TRUE)     
+  #tests if it can calculate the variance of the sample
+  if (is.character(check))                      
+    #if it reaches a result (check=1)
     {
-      count=count+1                             #it continues the boucle augmenting the counter
-    } else                                      #otherwise
-    { mutemp=apply(sample,2,mean)               #calculates the mean of the subsample
-      sigmainvtemp=solve(cov(sample))           #calculates sigma inverse of the subsample
-      temp=1/gamma*sigmainvtemp%*%mu            #computes markowitz weights using the sigma of the subsample and the population mean
-      wsigma=rbind(wsigma,t(temp))              #the new sigma is the same sigma plus the vector temp
-      temp=1/gamma*sigmainvtemp%*%mutemp        #computes markowitz using subsample mean and sigma
-      wtotal=rbind(wtotal,t(temp))              #total weight is the 
-      temp=1/gamma*sigmainv%*%mutemp            #computes markowitz using the population sigma and the subsample mean
-      wmu=rbind(wmu,t(temp))                    #the new mu is the same wmu plus the vector temp 
+      count=count+1                             
+    #it continues the boucle augmenting the counter
+    } else                                      
+    #otherwise
+    { mutemp=apply(sample,2,mean)               
+     #calculates the mean of the subsample
+      sigmainvtemp=solve(cov(sample))           
+     #calculates sigma inverse of the subsample
+      temp=1/gamma*sigmainvtemp%*%mu            
+     #computes markowitz weights using the sigma of the subsample
+     #and the population mean
+      wsigma=rbind(wsigma,t(temp))              
+     #the new sigma is the same sigma plus the vector temp
+      temp=1/gamma*sigmainvtemp%*%mutemp        
+     #computes markowitz using subsample mean and sigma
+      wtotal=rbind(wtotal,t(temp))              
+     #total weight is the 
+      temp=1/gamma*sigmainv%*%mutemp            
+     #computes markowitz using the population sigma and the subsample mean
+      wmu=rbind(wmu,t(temp))                    
+     #the new mu is the same wmu plus the vector temp 
       }
   print(c(i,count/500))
 }
