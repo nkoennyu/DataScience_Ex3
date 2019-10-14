@@ -17,30 +17,31 @@ Here $\Sigma$ is the semi-positively defined matrix whilst $F$ is going to be th
 \section*{Question 1}
 
 In the first case we use the identity matrix $I_n$ and $\lambda=0.2$. We transform our estimate of $\Sigma$ and compute the inverse in order to solve the optimal weights. \\
-We determine the optimal weights using both $\mu$ and $\Sigma$ estimates from the same sub-sample but using the shrunk covariance matrix $\Sigma_S$ to compute the optimal weights. In Figure \ref{fig2}, the left box-plot shows the resulting weight distribution for the first 20 stocks. The right box-plot is the plot from Figure \ref{fig1} also obtained using only the sub-sample but without shrinkage. \\
+We determine the optimal weights using both $\mu$ and $\Sigma$ estimates from the same sub-sample but using the shrunk covariance matrix $\Sigma_S$ to compute the optimal weights. In Figure \ref{fig2}, the left box-plot shows the resulting weight distribution for the first 20 stocks. The right box-plot is the plot from Figure \ref{fig1} also obtained using only the sub-sample but without shrinkage. \par\smallskip
 Clearly, using a shrunk covariance matrix drastically improves the stability of the weights. However, this \emph{does not guarantee the optimality of the weights themselves}, we would have to test the performance of these new weights and compare said performance to that of the optimal portfolio derived from the full-sample.
 
-Figure \ref{fig2} compares  
-\begin{itemize}
-\item The weight distribution estimated from the sub-sample (Figure \ref{fig1} "mu and sigma updated"),
-\item our estimates of sigma based on the entire dataset and mu based on the subsample (second boxplot "mu updated"), and
-\item the estimates based on the subsample but using the first shrunk covariance matrix, where $F=I$ ("regularized F=I"). 
-\end{itemize}
-
 \begin{figure}[H]
-%\includegraphics[width=15cm]{DS_Ex3_Q2A.eps}
-\caption{Weight stability with shrinkage $F=I$}
+\includegraphics[width=14cm]{QQplotmusigmaupdatedquestion2Imerged.eps}
+\caption{Weight stability with shrinkage $F=I_n$}
 \label{fig2}
 \end{figure}
 
-Note the different scale on the y-axis. We can see that...
+\section*{Question 2}
 
- 
-Figure \ref{fig3} differs from Figure \ref{fig2} only in the third diagram. Here we compare our previous results with the estimates using the constant correlation matrix.
+In the second case we use the constant correlation matrix $F_{\overline{\rho}}$ and $\lambda=0.2$. We also transform our estimate of $\Sigma$ and compute the inverse in order to solve the optimal weights. \\
+The optimal weights are also derived from $\mu$ and $\Sigma$ estimates from the same sub-sample and using the new shrunk covariance matrix $\Sigma_S$ to compute the optimal weights. In Figure \ref{fig3}, the left box-plot shows the resulting weight distribution for the first 20 stocks. The right box-plot is the plot from Figure \ref{fig1} also obtained using only the sub-sample but without shrinkage. \par\smallskip
+Just as in Figure \ref{fig2}, using a shrunk covariance matrix drastically improves the stability of the weights. This also \emph{does not guarantee the optimality of the weights themselves}, we would also have to test the performance of these new weights and compare said performance to that of the optimal portfolio derived from the full-sample.
+
 \begin{figure}[H]
-%\includegraphics[width=15cm]{DS_Ex3_Q2B.eps}
-\caption{Weight stability with shrinkage using the constant correlation matrix}
+\includegraphics[width=14cm]{QQplotmusigmaupdatedquestion2Fmerged.eps}
+\caption{Weight stability with shrinkage using $F=F_{\overline{\rho}}$}
 \label{fig3}
 \end{figure}
 
-We can see that...
+The obvious practical problem is which value to choose for the shrinkage constant. Any choice of $\lambda\;;\;\;0<\lambda<1$ would yield a compromise between $\Sigma$ and $F$. But this results in an infinite number of possible values for $\lambda$. 
+\par\smallskip
+Intuitively, there is an optimal shrinkage constant. It is the one that minimizes the expected distance between the shrinkage estimator and the true covariance matrix. \\
+Another limit of shrinkage while using the constant correlation matrix is that the model would be inappropriate if assets came from different asset classes, such as stocks and bonds. \smallskip \\
+\textit{(Ledoit \& Wolf, 2003 – Honey I Shrunk the Sample Covariance Matrix)}
+\par\smallskip
+Finally as mentioned previously, it is of vital importance to verify the performance of the weights obtained by using the shrunk covariance matrices: stable weights that do not yield an optimal or at least close-to-optimal performance do not present great interest.
